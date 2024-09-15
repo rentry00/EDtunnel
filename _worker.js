@@ -973,23 +973,16 @@ ${วเลสSec}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="This is a tool for generating VLESS protocol configurations. Give us a star on GitHub if you found it useful!">
-    <meta name="keywords" content="EDtunnel, Cloudflare Pages, Cloudflare Worker, Severless">
-    <meta property='og:site_name' content='EDtunnel: VLESS Configuration'>
-    <meta property='og:title' content='EDtunnel-rev - VLESS Configuration'>
-    <meta property='og:description' content='Use Cloudflare Pages and Worker Severless to implement VLESS protocol'>
-    <meta property='og:image' content='https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${encodeURIComponent(`vless://${userIDs[0]}@${hostName}${commonUrlPart}`)}'>
-    <meta name="twitter:card" content="summary_large_image">
+    <meta name="description" content="EDtunnel: Generate VLESS protocol configurations with ease using Cloudflare Pages and Workers.">
+    <meta name="keywords" content="EDtunnel, VLESS, Cloudflare Pages, Cloudflare Workers">
     <title>EDtunnel: VLESS Configuration</title>
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-
-    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <style>
-        /* Reset and font imports */
+        /* Reset and basic styles */
         * {
             margin: 0;
             padding: 0;
@@ -1000,174 +993,120 @@ ${วเลสSec}
             font-family: 'Roboto', sans-serif;
             background-color: var(--background-color, #f4f4f4);
             color: var(--text-color, #333);
-            transition: all 0.3s ease-in-out;
             padding: 20px;
-            margin: 0;
+            transition: all 0.3s ease-in-out;
         }
 
-        /* Header styles */
+        /* Header */
         .header {
             text-align: center;
             padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .header h1 {
             font-family: 'Orbitron', sans-serif;
             font-size: 2.5rem;
-            color: var(--header-color, #1a0dab);
-            text-shadow: var(--header-shadow, none);
+            color: #1a0dab;
         }
 
         .header p {
-            margin-top: 10px;
             font-size: 1.2rem;
-            color: var(--text-color);
         }
 
-        /* Container and section styling */
+        /* Container and sections */
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            background-color: rgba(255, 255, 255, 0.05);
             padding: 40px;
+            background-color: #fff;
             border-radius: 10px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .introduction {
-            margin-bottom: 30px;
-        }
-
-        .introduction h2 {
-            color: var(--header-color);
+        h2 {
             font-size: 1.8rem;
+            color: #1a0dab;
         }
 
-        .introduction p {
+        p {
             font-size: 1rem;
             line-height: 1.6;
             margin-top: 10px;
         }
 
-        .config-output {
-            background-color: var(--output-bg-color, #f7f7f7);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
-        }
-
-        .config-output h3 {
-            margin-bottom: 10px;
-            font-size: 1.5rem;
-            color: var(--header-color);
+        /* Output and buttons */
+        .config-output, .qr-code {
+            margin-top: 20px;
+            text-align: center;
         }
 
         .output-code {
-            background: transparent;
-            border: none;
-            white-space: pre-wrap;
-            word-break: break-word;
+            background-color: #f7f7f7;
             padding: 15px;
+            border-radius: 8px;
             font-size: 1.1rem;
-            color: var(--code-text-color, #333);
+            margin-bottom: 20px;
+            word-wrap: break-word;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        /* Button styles */
         button {
             padding: 10px 20px;
-            font-size: 1rem;
-            background-color: var(--button-bg, #1a0dab);
+            background-color: #1a0dab;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-
-        button:hover {
-            background-color: var(--button-hover-bg, #0056b3);
-            transform: translateY(-2px);
-        }
-
-        /* Sticky navigation */
-        .sticky {
-            position: sticky;
-            top: 0;
-            background-color: var(--background-color);
-            padding: 10px;
-            z-index: 1000;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Theme switcher buttons */
-        .theme-switcher h4 {
-            margin-bottom: 10px;
-            font-size: 1.2rem;
-            color: var(--text-color);
-        }
-
-        .theme-btn {
-            margin-right: 10px;
-            background-color: var(--theme-btn-bg, #ddd);
-            padding: 8px 16px;
-            font-size: 1rem;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            cursor: pointer;
             transition: background-color 0.3s ease;
         }
 
-        .theme-btn:hover {
-            background-color: var(--theme-btn-hover-bg, #bbb);
+        button:hover {
+            background-color: #0056b3;
         }
 
-        /* QR code section */
-        .qr-code {
-            text-align: center;
-            margin-top: 20px;
+        .theme-btn {
+            margin: 10px 5px;
+            padding: 8px 16px;
         }
 
+        /* QR code */
         .qr-code img {
+            margin-top: 10px;
             width: 200px;
             height: 200px;
-            margin-top: 10px;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
 
         /* Modal styles */
         .modal {
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.7);
-            display: flex;
             justify-content: center;
             align-items: center;
-            visibility: hidden;
-            opacity: 0;
-            transition: visibility 0s, opacity 0.3s ease;
         }
 
         .modal.active {
-            visibility: visible;
-            opacity: 1;
+            display: flex;
         }
 
         .modal-content {
             background-color: white;
             padding: 30px;
             border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            max-width: 500px;
             width: 100%;
+            max-width: 500px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
 
         .close {
-            float: right;
             font-size: 1.5rem;
             cursor: pointer;
             color: #999;
@@ -1177,20 +1116,13 @@ ${วเลสSec}
             color: black;
         }
 
-        /* Checkbox styles */
-        label {
-            display: block;
-            margin-top: 20px;
-            font-size: 1rem;
-        }
-
-        #agree-check {
-            margin-right: 10px;
-        }
-
-        .disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
+        /* Sticky and responsive styles */
+        .sticky {
+            position: sticky;
+            top: 0;
+            background-color: white;
+            z-index: 1000;
+            padding: 10px;
         }
 
         /* Fade-in animation */
@@ -1203,148 +1135,90 @@ ${วเลสSec}
             opacity: 1;
         }
 
-        /* Dark mode */
-        .dark-theme {
-            --background-color: #0a0f1c;
-            --text-color: #e0e6f1;
-            --header-color: #1abc9c;
-            --button-bg: #1abc9c;
-            --button-hover-bg: #16a085;
-        }
-
-        /* Gold mode */
-        .gold-theme {
-            --background-color: #1f1f1f;
-            --text-color: #d4af37;
-            --header-color: #ffd700;
-            --button-bg: #ffd700;
-            --button-hover-bg: #ffdd44;
-        }
-
-        /* Purple mode */
-        .purple-theme {
-            --background-color: #1a0033;
-            --text-color: #d9b3ff;
-            --header-color: #ba55d3;
-            --button-bg: #ba55d3;
-            --button-hover-bg: #dda0dd;
-        }
-
-        /* Responsive styles */
         @media (max-width: 768px) {
             .container {
                 padding: 20px;
             }
-
-            .header h1 {
-                font-size: 2rem;
-            }
-
-            .config-output h3 {
-                font-size: 1.3rem;
-            }
         }
     </style>
 </head>
-
   `;
 
 	// Join output with newlines, wrap inside <html> and <body>
 	return `
   <html>
   ${htmlHead}
-  <body>
-<body class="light-theme">
-    <!-- Header Section -->
+  
+<body>
+    <!-- Header -->
     <header class="header sticky">
-        <h1>Welcome to EDtunnel</h1>
-        <p>Effortlessly generate your VLESS protocol configuration using Cloudflare Pages and Workers.</p>
+        <h1>EDtunnel</h1>
+        <p>VLESS Configuration Tool</p>
     </header>
 
-    <!-- Main Content Section -->
+    <!-- Main content -->
     <main class="container">
+        <!-- Introduction section -->
         <section class="introduction fade-in">
             <h2>What is VLESS?</h2>
-            <p>VLESS is a lightweight protocol that delivers secure and reliable connections. This tool simplifies the setup process for you.</p>
+            <p>VLESS is a lightweight protocol offering secure and reliable connections. This tool simplifies the configuration process for you.</p>
         </section>
 
+        <!-- VLESS Configuration Output -->
         <section class="config-output fade-in">
             <h3>Your VLESS Configuration</h3>
-            <pre class="output-code">vless://${userIDs[0]}@${hostName}${commonUrlPart}</pre>
-            <button class="copy-btn" onclick="copyToClipboard('vless://${userIDs[0]}@${hostName}${commonUrlPart}')">Copy to Clipboard</button>
+            <pre class="output-code" id="vlessConfig"></pre>
+            <button onclick="copyToClipboard()" id="copyBtn">Copy to Clipboard</button>
         </section>
 
-        <!-- QR Code Generation -->
+        <!-- QR Code -->
         <section class="qr-code fade-in">
-            <h4>Your Configuration QR Code</h4>
+            <h3>Your Configuration QR Code</h3>
             <img id="qrCode" src="" alt="QR Code">
         </section>
 
+        <!-- Theme switcher -->
         <section class="theme-switcher fade-in">
             <h4>Switch Theme</h4>
-            <button class="theme-btn" data-theme="light">Light</button>
-            <button class="theme-btn" data-theme="dark">Dark</button>
-            <button class="theme-btn" data-theme="gold">Gold</button>
-            <button class="theme-btn" data-theme="purple">Purple</button>
+            <button class="theme-btn" data-theme="light" onclick="changeTheme('light')">Light</button>
+            <button class="theme-btn" data-theme="dark" onclick="changeTheme('dark')">Dark</button>
         </section>
 
-        <!-- Modal Section -->
-        <div id="modal" class="modal hidden">
+        <!-- Modal -->
+        <div id="userModal" class="modal">
             <div class="modal-content">
-                <span class="close">&times;</span>
+                <span class="close" onclick="closeModal()">&times;</span>
                 <h2>User Agreement</h2>
-                <p>Please read and agree to the following terms before using this tool:</p>
-                <ul>
-                    <li><strong>Compliance with Laws:</strong> You agree to use this tool in full compliance with all local, national, and international laws.</li>
-                    <li><strong>No Misuse:</strong> You agree not to misuse this tool for any illegal or unethical activities.</li>
-                    <li><strong>Responsibility Disclaimer:</strong> All actions taken using this tool are your own responsibility.</li>
-                </ul>
-                <label>
-                    <input type="checkbox" id="agree-check"> I agree to the terms and conditions
-                </label>
-                <button id="agree-btn" class="disabled" disabled>Agree</button>
+                <p>Before using this tool, please agree to the terms and conditions.</p>
+                <label><input type="checkbox" id="agreeCheckbox"> I agree to the terms and conditions</label>
+                <button id="agreeBtn" disabled onclick="closeModal()">Agree</button>
             </div>
         </div>
     </main>
 
     <script>
+        // Dynamically load the configuration and generate the QR code
         document.addEventListener('DOMContentLoaded', function() {
-            const themeButtons = document.querySelectorAll('.theme-btn');
-            const modal = document.getElementById('modal');
-            const closeModal = document.querySelector('.close');
-            const agreeBtn = document.getElementById('agree-btn');
-            const agreeCheck = document.getElementById('agree-check');
-            const qrCodeImg = document.getElementById('qrCode');
-            const vlessConfig = `vless://${userIDs[0]}@${hostName}${commonUrlPart}`;
+            const vlessConfig = "vless://exampleUser@hostname:443";
+            const qrCodeURL = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(vlessConfig)}`;
+            
+            // Display VLESS config
+            document.getElementById('vlessConfig').textContent = vlessConfig;
 
-            // Theme change handler
-            themeButtons.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    document.body.className = `${btn.dataset.theme}-theme`;
-                    localStorage.setItem('theme', btn.dataset.theme);
-                });
+            // Generate QR code
+            const qrCodeImage = document.getElementById('qrCode');
+            qrCodeImage.src = qrCodeURL;
+
+            // Enable modal agreement
+            const agreeCheckbox = document.getElementById('agreeCheckbox');
+            const agreeBtn = document.getElementById('agreeBtn');
+            agreeCheckbox.addEventListener('change', function() {
+                agreeBtn.disabled = !agreeCheckbox.checked;
             });
 
-            // Modal handling
-            closeModal.addEventListener('click', () => modal.classList.remove('active'));
-            agreeCheck.addEventListener('change', function() {
-                agreeBtn.disabled = !this.checked;
-                if (!agreeBtn.disabled) {
-                    agreeBtn.classList.remove('disabled');
-                } else {
-                    agreeBtn.classList.add('disabled');
-                }
-            });
-
-            // Show modal on load
+            // Show the modal on load
+            const modal = document.getElementById('userModal');
             modal.classList.add('active');
-
-            // QR Code generation
-            function generateQRCode(data) {
-                const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(data)}`;
-                qrCodeImg.src = qrUrl;
-            }
-            generateQRCode(vlessConfig);
 
             // Apply system theme preference
             function applySystemTheme() {
@@ -1364,12 +1238,25 @@ ${วเลสSec}
             });
         });
 
-        // Copy to clipboard function
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                alert('Copied to clipboard!');
+        // Theme switcher function
+        function changeTheme(theme) {
+            document.body.className = theme + '-theme';
+        }
+
+        // Modal close function
+        function closeModal() {
+            const modal = document.getElementById('userModal');
+            modal.classList.remove('active');
+        }
+
+        // Copy to clipboard function with error handling
+        function copyToClipboard() {
+            const configText = document.getElementById('vlessConfig').textContent;
+            navigator.clipboard.writeText(configText).then(() => {
+                alert('Copied to clipboard successfully!');
             }).catch(err => {
-                console.error('Failed to copy:', err);
+                console.error('Error copying text: ', err);
+                alert('Failed to copy to clipboard. Please try again.');
             });
         }
     </script>
