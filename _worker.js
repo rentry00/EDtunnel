@@ -1054,363 +1054,381 @@ ${วเลสSec}
 	const clash_link = `https://api.v1.mk/sub?target=clash&url=${encodeURIComponent(sublink)}&insert=false&emoji=true&list=false&tfo=false&scv=true&fdn=false&sort=false&new_name=true`;
 	// Prepare header string
 	const header = `
-<b style='font-size: 15px;'>Welcome! This function generates configuration for vless protocol. If you found this useful, please check our GitHub project for more:</b>
-<b style='font-size: 15px;'>欢迎！这是生成vless协议的配置。如果您发现这个项目很好用，请查看我们的 GitHub 项目给我一个star：</b>
-<a href='https://github.com/EDtunnel-rev/EDtunnel-rev' target='_blank'>EDtunnel-rev - https://github.com/EDtunnel-rev/EDtunnel-rev</a>
-<iframe src='https://ghbtns.com/github-btn.html?user=EDtunnel-rev&repo=EDtunnel-rev&type=star&count=true&size=large' frameborder='0' scrolling='0' width='170' height='30' title='GitHub'></iframe>
-<a href='//${hostName}/sub/${userIDArray[0]}' target='_blank'>vless节点订阅连接</a>
-<a href='clash://install-config?url=${encodeURIComponent(`https://${hostName}/sub/${userIDArray[0]}?format=clash`)}}' target='_blank'>Clash for Windows 节点订阅连接</a>
-<a href='${clash_link}' target='_blank'>Clash 节点订阅连接</a>
-<a href='${subbestip}' target='_blank'>优选IP自动节点订阅</a>
-<a href='clash://install-config?url=${encodeURIComponent(subbestip)}' target='_blank'>Clash优选IP自动</a>
-<a href='sing-box://import-remote-profile?url=${encodeURIComponent(subbestip)}' target='_blank'>singbox优选IP自动</a>
-<a href='sn://subscription?url=${encodeURIComponent(subbestip)}' target='_blank'>nekobox优选IP自动</a>
-<a href='v2rayng://install-config?url=${encodeURIComponent(subbestip)}' target='_blank'>v2rayNG优选IP自动</a></p>`;
-
-	// HTML Head with CSS and FontAwesome library
-	const htmlHead = `
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<title>EDtunnel: VLESS Configuration</title>
-	<meta name='description' content='This is a tool for generating VLESS protocol configurations. Give us a star on GitHub https://github.com/EDtunnel-rev/EDtunnel-rev if you found it useful!'>
-	<meta name='keywords' content='EDtunnel, Cloudflare Pages, Cloudflare Worker, Severless'>
-	<meta name='viewport' content='width=device-width, initial-scale=1'>
-	<meta property='og:site_name' content='EDtunnel: VLESS Configuration' />
-	<meta property='og:type' content='website' />
-	<meta property='og:title' content='EDtunnel-rev - VLESS Configuration and Subscribe Output' />
-	<meta property='og:description' content='Use Cloudflare Pages and Worker Severless to implement VLESS protocol' />
-	<meta property='og:url' content='https://${hostName}/' />
-	<meta property='og:image' content='https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${encodeURIComponent(`วเลส://${userIDs.split(",")[0]}@${hostName}${commonUrlPart}`)}' />
-	<meta name='twitter:card' content='summary_large_image' />
-	<meta name='twitter:title' content='EDtunnel - VLESS Configuration and Subscribe Output' />
-	<meta name='twitter:description' content='Use Cloudflare Pages and Worker Severless to implement VLESS protocol' />
-	<meta name='twitter:url' content='https://${hostName}/' />
-	<meta name='twitter:image' content='https://cloudflare-ipfs.com/ipfs/bafybeigd6i5aavwpr6wvnwuyayklq3omonggta4x2q7kpmgafj357nkcky' />
-	<meta property='og:image:width' content='1500' />
-	<meta property='og:image:height' content='1500' />
-	<style>
-		body {
-			font-family: 'Roboto', sans-serif;
-			background-color: var(--background-color, #f0f0f0);
-			color: var(--text-color, #333);
-			padding: 20px;
-			margin: 0;
-			transition: all 0.3s ease;
-		}
-		a {
-			color: var(--link-color, #1a0dab);
-			text-decoration: none;
-			transition: color 0.3s;
-		}
-		a:hover {
-			color: var(--link-hover-color, #1a0dab);
-		}
-		img {
-			max-width: 100%;
-			height: auto;
-			border-radius: 8px;
-			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-		}
-		pre {
-			white-space: pre-wrap;
-			word-wrap: break-word;
-			background-color: var(--pre-background-color, #fff);
-			border: 1px solid var(--pre-border-color, #ddd);
-			padding: 20px;
-			margin: 20px 0;
-			border-radius: 10px;
-			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-			color: var(--pre-text-color, #333);
-			font-size: 1rem;
-		}
-		h1, h2, h3, h4, h5, h6 {
-			color: var(--header-color, #1a0dab);
-			text-shadow: var(--header-shadow, none);
-			font-family: 'Orbitron', sans-serif;
-		}
-		button {
-			background-color: var(--button-background-color, #1a0dab);
-			color: var(--button-text-color, white);
-			border: none;
-			padding: 10px 20px;
-			font-size: 1rem;
-			cursor: pointer;
-			transition: background-color 0.3s, transform 0.3s;
-			border-radius: 5px;
-		}
-		button:hover {
-			background-color: var(--button-hover-background-color, #1a0dab);
-			transform: translateY(-2px);
-		}
-		.container {
-			max-width: 1200px;
-			margin: 0 auto;
-			padding: 20px;
-			background: rgba(255, 255, 255, 0.05);
-			border-radius: 10px;
-			box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-			backdrop-filter: blur(5px);
-			-webkit-backdrop-filter: blur(5px);
-			border: 1px solid rgba(255, 255, 255, 0.1);
-		}
-		.theme-button {
-			margin: 10px;
-			cursor: pointer;
-		}
-		.language-button {
-			margin: 5px;
-			cursor: pointer;
-		}
-		/* Dark mode */
-		.dark {
-			--background-color: #0a0f1c;
-			--text-color: #e0e6f1;
-			--link-color: #1abc9c;
-			--link-hover-color: #16a085;
-			--pre-background-color: #1b2735;
-			--pre-border-color: #34495e;
-			--pre-text-color: #c8d6e5;
-			--header-color: #1abc9c;
-			--header-shadow: 0 0 10px #1abc9c, 0 0 20px #1abc9c, 0 0 30px #1abc9c;
-			--button-background-color: #1abc9c;
-			--button-hover-background-color: #16a085;
-			--button-text-color: #0a0f1c;
-		}
-		/* Gold mode */
-		.gold {
-			--background-color: #1f1f1f;
-			--text-color: #d4af37;
-			--link-color: #ffd700;
-			--link-hover-color: #ffa500;
-			--pre-background-color: #333;
-			--pre-border-color: #555;
-			--pre-text-color: #ffdd44;
-			--header-color: #ffd700;
-			--header-shadow: 0 0 10px #ffd700, 0 0 20px #ffd700, 0 0 30px #ffd700;
-			--button-background-color: #ffd700;
-			--button-hover-background-color: #ffdd44;
-			--button-text-color: #333;
-		}
-		/* Purple mode */
-		.purple {
-			--background-color: #1a0033;
-			--text-color: #d9b3ff;
-			--link-color: #c71585;
-			--link-hover-color: #d02090;
-			--pre-background-color: #330066;
-			--pre-border-color: #663399;
-			--pre-text-color: #e6e6fa;
-			--header-color: #ba55d3;
-			--header-shadow: 0 0 10px #ba55d3, 0 0 20px #ba55d3, 0 0 30px #ba55d3;
-			--button-background-color: #ba55d3;
-			--button-hover-background-color: #dda0dd;
-			--button-text-color: #fff;
-		}
-		/* Modal styles */
-		.modal {
-			display: none;
-			position: fixed;
-			z-index: 1;
-			left: 0;
-			top: 0;
-			width: 100%;
-			height: 100%;
-			overflow: auto;
-			background-color: rgba(0, 0, 0, 0.7);
-			padding-top: 60px;
-		}
-		.modal-content {
-			background-color: #fefefe;
-			margin: 5% auto;
-			padding: 20px;
-			border: 1px solid #888;
-			width: 80%;
-			max-width: 600px;
-			border-radius: 10px;
-			box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-		}
-		.close {
-			color: #aaa;
-			float: right;
-			font-size: 28px;
-			font-weight: bold;
-		}
-		.close:hover,
-		.close:focus {
-			color: black;
-			text-decoration: none;
-			cursor: pointer;
-		}
-		.modal-button {
-			display: block;
-			width: 100%;
-			background-color: #1abc9c;
-			color: white;
-			border: none;
-			padding: 15px;
-			font-size: 1.1rem;
-			cursor: pointer;
-			margin-top: 20px;
-			border-radius: 5px;
-			transition: background-color 0.3s;
-		}
-		.modal-button:hover {
-			background-color: #16a085;
-		}
-	</style>
-	<!-- Add Google Fonts -->
-	<link href='https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@400;700&display=swap' rel='stylesheet'>
-	<!-- Add FontAwesome library -->
-	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
-	<script>
-		// Language and Theme handling
-		let currentTheme = localStorage.getItem('theme') || 'light';
-		let currentLanguage = navigator.language || 'en';
-		const themeButtonMapping = {
-			light: "default",
-			dark: "dark",
-			gold: "gold",
-			purple: "purple"
-		};
-		document.addEventListener('DOMContentLoaded', function() {
-			document.body.classList.add(currentTheme);
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="This is a tool for generating VLESS protocol configurations. Give us a star on GitHub https://github.com/EDtunnel-rev/EDtunnel-rev if you found it useful!">
+    <meta name="keywords" content="EDtunnel, Cloudflare Pages, Cloudflare Worker, Severless">
+    <meta property="og:title" content="EDtunnel-rev - VLESS Configuration and Subscribe Output" />
+    <meta property="og:description" content="Use Cloudflare Pages and Worker Severless to implement VLESS protocol" />
+    <meta property="og:url" content="https://${hostName}/" />
+    <meta property="og:image" content="https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${encodeURIComponent(`vless://${userIDs.split(",")[0]}@${hostName}${commonUrlPart}`)}" />
+    <meta property="og:image:width" content="1500" />
+    <meta property="og:image:height" content="1500" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="EDtunnel - VLESS Configuration and Subscribe Output" />
+    <meta name="twitter:description" content="Use Cloudflare Pages and Worker Severless to implement VLESS protocol" />
+    <meta name="twitter:image" content="https://cloudflare-ipfs.com/ipfs/bafybeigd6i5aavwpr6wvnwuyayklq3omonggta4x2q7kpmgafj357nkcky" />
+    <title>EDtunnel: VLESS Configuration</title>
 
-			const languageButtons = document.querySelectorAll('.language-button');
-			languageButtons.forEach(button => {
-				button.addEventListener('click', function() {
-					const language = this.dataset.language;
-					currentLanguage = language;
-					updateLanguage(language);
-				});
-			});
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: radial-gradient(circle at center, #000428, #004e92);
+            color: var(--text-color, #f4f4f4);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
 
-			const themeButtons = document.querySelectorAll('.theme-button');
-			themeButtons.forEach(button => {
-				button.addEventListener('click', function() {
-					const theme = this.dataset.theme;
-					changeTheme(theme);
-				});
-			});
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
 
-			const modal = document.getElementById('myModal');
-			const closeBtn = document.getElementsByClassName('close')[0];
-			const agreeButton = document.getElementById('agreeButton');
-			const agreementCheckbox = document.getElementById('agreementCheckbox');
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
 
-			modal.style.display = 'block';
-			agreementCheckbox.addEventListener('change', function() {
-				agreeButton.disabled = !this.checked;
-			});
-			agreeButton.addEventListener('click', function() {
-				modal.style.display = 'none';
-			});
-			closeBtn.addEventListener('click', function() {
-				modal.style.display = 'none';
-			});
-			window.onclick = function(event) {
-				if (event.target == modal) {
-					modal.style.display = 'none';
-				}
-			};
-		});
+        h1, h2, h3, h4 {
+            color: #f4f4f4;
+            font-family: 'Orbitron', sans-serif;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
 
-		function changeTheme(theme) {
-			document.body.className = theme;
-			localStorage.setItem('theme', theme);
-		}
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
 
-		function updateLanguage(language) {
-			// Language data
-			const languages = {
-				en: {
-					title: "User Agreement",
-					terms: "Before using this tool, please read and agree to the following terms...",
-					agree: "I agree to the terms and conditions"
-				},
-				zh: {
-					title: "用户协议",
-					terms: "在使用此工具之前，请阅读并同意以下条款...",
-					agree: "我同意条款和条件"
-				},
-				fr: {
-					title: "Accord de l'utilisateur",
-					terms: "Avant d'utiliser cet outil, veuillez lire et accepter les conditions suivantes...",
-					agree: "J'accepte les termes et conditions"
-				},
-				ja: {
-					title: "ユーザー同意書",
-					terms: "このツールを使用する前に、次の条件を読んで同意してください...",
-					agree: "利用規約に同意します"
-				},
-				ko: {
-					title: "사용자 동의서",
-					terms: "이 도구를 사용하기 전에 다음 이용 약관을 읽고 동의하십시오...",
-					agree: "이용 약관에 동의합니다"
-				}
-			};
-			const selectedLanguage = languages[language] || languages.en;
-			document.querySelector('.modal-content h2').textContent = selectedLanguage.title;
-			document.querySelector('.modal-content p').textContent = selectedLanguage.terms;
-			document.querySelector('#agreeButton').textContent = selectedLanguage.agree;
-		}
-	</script>
+        /* Theme and Language Switchers */
+        .theme-switcher, .language-switcher {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .theme-button, .language-button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            font-size: 1rem;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #1abc9c, #16a085);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .theme-button:hover, .language-button:hover {
+            background: linear-gradient(135deg, #16a085, #1abc9c);
+            transform: translateY(-5px);
+        }
+
+        /* Return to Homepage Link */
+        .return-home {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .home-link {
+            padding: 12px 30px;
+            background-color: #f39c12;
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2rem;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.2s;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(243, 156, 18, 0.5);
+        }
+
+        .home-link i {
+            margin-right: 10px;
+        }
+
+        .home-link:hover {
+            background-color: #e67e22;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(243, 156, 18, 0.7);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            overflow: auto;
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 600px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.5s;
+        }
+
+        .close {
+            float: right;
+            font-size: 28px;
+            color: #aaa;
+        }
+
+        .close:hover, .close:focus {
+            color: black;
+            cursor: pointer;
+        }
+
+        .modal-button {
+            background-color: #1abc9c;
+            color: #fff;
+            border: none;
+            padding: 15px;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        .modal-button:hover {
+            background-color: #16a085;
+        }
+
+        /* Theme Styles */
+        .dark {
+            --background-color: #141e30;
+            --text-color: #ecf0f1;
+            --link-color: #1abc9c;
+            --link-hover-color: #16a085;
+            --header-color: #1abc9c;
+            --header-shadow: 0 0 10px #1abc9c, 0 0 20px #1abc9c;
+            --button-background-color: #1abc9c;
+        }
+
+        .gold {
+            --background-color: #1f1f1f;
+            --text-color: #d4af37;
+            --link-color: #ffd700;
+            --link-hover-color: #ffa500;
+            --header-color: #ffd700;
+        }
+
+        .purple {
+            --background-color: #1a0033;
+            --text-color: #d9b3ff;
+            --link-color: #c71585;
+            --link-hover-color: #d02090;
+            --header-color: #ba55d3;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Additional styling for smaller devices */
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .theme-button, .language-button {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+
+            .home-link {
+                font-size: 1rem;
+                padding: 10px 25px;
+            }
+        }
+    </style>
 </head>
-
   `;
 
 	// Join output with newlines, wrap inside <html> and <body>
 	return `
   <html>
   ${htmlHead}
-  <body>
-<body>
-	<!-- Modal -->
-	<div id="myModal" class="modal">
-		<div class="modal-content">
-			<span class="close">&times;</span>
-			<h2>User Agreement</h2>
-			<p>Before using this tool, please read and agree to the following terms...</p>
-			<ol>
-				<li><strong>Compliance with Laws:</strong> You agree to use this tool in full compliance with all local, national, and international laws and regulations.</li>
-				<li><strong>No Misuse:</strong> You agree not to misuse this tool for any illegal, unethical, or immoral activities. This includes, but is not limited to, using it to transmit or facilitate the transmission of unwholesome, harmful, or offensive content.</li>
-				<li><strong>Responsibility Disclaimer:</strong> All actions taken using this tool are your own responsibility. The creators and contributors of this project, including the GitHub account <a href="https://github.com/EDtunnel-rev" target="_blank">EDtunnel-rev</a>, are not aware of or responsible for how you choose to use this tool.</li>
-				<li><strong>No Liability:</strong> The creators and contributors of this project are not liable for any consequences resulting from your use of this tool, including but not limited to legal, financial, or reputational damages.</li>
-				<li><strong>Non-affiliation:</strong> This tool is provided independently and is not affiliated with or endorsed by any organization, government, or corporate entity.</li>
-				<li><strong>Open Source Contributions:</strong> This project is contributed by the GitHub account <a href="https://github.com/EDtunnel-rev" target="_blank">EDtunnel-rev</a>. The actual controller of this account is Satdog, whose official website is <a href="https://satdog.us.kg" target="_blank">https://satdog.us.kg</a>. Satdog's GitHub official account is <a href="https://github.com/EXEthereum" target="_blank">EXEthereum</a>, with the official page at <a href="https://github.com/EXEthereum" target="_blank">https://github.com/EXEthereum</a>.</li>
-				<li><strong>Independence of the Author:</strong> The author of this project is not aware of and is not responsible for how this tool is used. The author does not endorse or condone any particular use case for this tool.</li>
-				<li><strong>Amendments:</strong> The terms of this agreement may be updated or changed at any time, and it is your responsibility to stay informed of such changes by reviewing the agreement periodically.</li>
-			</ol>
-			<p>Please confirm your agreement to these terms by checking the box below and clicking "Agree".</p>
-			<label><input type="checkbox" id="agreementCheckbox"> I agree to the terms and conditions</label>
-			<button id="agreeButton" class="modal-button" disabled>Agree</button>
-		</div>
-	</div>
+ <body>
+    <!-- Particle Background -->
+    <canvas id="particleCanvas"></canvas>
 
-	<div class="container">
-		<h1>Welcome to EDtunnel: VLESS Configuration</h1>
-		<p>Generate your VLESS protocol configuration with ease and efficiency. This tool is powered by Cloudflare Pages and Worker Severless technology to deliver seamless performance.</p>
-		
-		<!-- Theme and Language Switcher -->
-		<div class="theme-switcher">
-			<button class="theme-button" data-theme="light">Light</button>
-			<button class="theme-button" data-theme="dark">Dark</button>
-			<button class="theme-button" data-theme="gold">Gold</button>
-			<button class="theme-button" data-theme="purple">Purple</button>
-		</div>
-  <pre style='background-color: transparent; border: none;'>${header}</pre>
-  <pre>${output}</pre>
-  </body>
-  <script>
-	function copyToClipboard(text) {
-	  navigator.clipboard.writeText(text)
-		.then(() => {
-		  alert("Copied to clipboard");
-		})
-		.catch((err) => {
-		  console.error("Failed to copy to clipboard:", err);
-		});
-	}
-  </script>
-  </html>`;
+    <!-- Container -->
+    <div class="container">
+        <h1>Welcome to EDtunnel: VLESS Configuration</h1>
+        <p>Generate your VLESS protocol configuration with ease and efficiency. This tool is powered by Cloudflare Pages and Worker Severless technology to deliver seamless performance.</p>
+
+        <!-- Theme and Language Switcher -->
+        <div class="theme-switcher">
+            <button class="theme-button" data-theme="light">Light</button>
+            <button class="theme-button" data-theme="dark">Dark</button>
+            <button class="theme-button" data-theme="gold">Gold</button>
+            <button class="theme-button" data-theme="purple">Purple</button>
+        </div>
+
+        <!-- Return to Homepage -->
+        <div class="return-home">
+            <a href="/" class="home-link"><i class="fas fa-home"></i> Return to Homepage</a>
+        </div>
+
+        <!-- User Agreement Modal -->
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>User Agreement</h2>
+                <p>Before using this tool, please read and agree to the following terms...</p>
+                <ol>
+                    <li><strong>Compliance with Laws:</strong> You agree to use this tool in full compliance with all local, national, and international laws and regulations.</li>
+                    <li><strong>No Misuse:</strong> You agree not to misuse this tool for any illegal, unethical, or immoral activities.</li>
+                    <li><strong>Responsibility Disclaimer:</strong> All actions taken using this tool are your own responsibility. The creators and contributors of this project are not aware of or responsible for how you choose to use this tool.</li>
+                    <li><strong>No Liability:</strong> The creators and contributors are not liable for any consequences resulting from your use of this tool.</li>
+                </ol>
+                <label><input type="checkbox" id="agreementCheckbox"> I agree to the terms and conditions</label>
+                <button id="agreeButton" class="modal-button" disabled>Agree</button>
+            </div>
+        </div>
+
+        <!-- Placeholder for Configuration Output -->
+        <pre style='background-color: transparent; border: none;'>${header}</pre>
+        <pre>${output}</pre>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Particle Background
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particlesArray = [];
+        const colors = ['#1abc9c', '#16a085', '#f39c12', '#e74c3c', '#2980b9'];
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 5 + 1;
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+                this.speedX = Math.random() * 3 - 1.5;
+                this.speedY = Math.random() * 3 - 1.5;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.size > 0.2) this.size -= 0.1;
+            }
+
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function init() {
+            for (let i = 0; i < 100; i++) {
+                particlesArray.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particlesArray.forEach((particle, index) => {
+                particle.update();
+                particle.draw();
+
+                if (particle.size <= 0.2) {
+                    particlesArray.splice(index, 1);
+                    particlesArray.push(new Particle());
+                }
+            });
+            requestAnimationFrame(animate);
+        }
+
+        init();
+        animate();
+
+        // Modal Handling
+        const modal = document.getElementById("myModal");
+        const closeBtn = document.getElementsByClassName("close")[0];
+        const agreeButton = document.getElementById("agreeButton");
+        const agreementCheckbox = document.getElementById("agreementCheckbox");
+
+        modal.style.display = "block";
+        agreementCheckbox.addEventListener("change", function() {
+            agreeButton.disabled = !this.checked;
+        });
+
+        agreeButton.addEventListener("click", function() {
+            modal.style.display = "none";
+        });
+
+        closeBtn.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        };
+
+        // Theme Switching
+        document.addEventListener('DOMContentLoaded', function () {
+            const themeButtons = document.querySelectorAll('.theme-button');
+            themeButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const theme = this.dataset.theme;
+                    document.body.className = theme;
+                });
+            });
+        });
+    </script>
+</body>
+</html>`;
 }
 
 const เซ็ตพอร์ตHttp = new Set([80, 8080, 8880, 2052, 2086, 2095, 2082]);
