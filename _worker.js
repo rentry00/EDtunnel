@@ -342,6 +342,7 @@ export default {
     async fetch(request, env, ctx) {
         try {
             userID = env.UUID || userID;
+	    sniValue = env.SNI || SNI;
             พร็อกซีไอพี = env.PROXYIP || พร็อกซีไอพี;
             dohURL = env.DNS_RESOLVER_URL || dohURL;
             let userID_Path = userID;
@@ -355,13 +356,29 @@ export default {
             
             // 检查是否为根路径的直接访问
             if (url.pathname === '/') {
-                return new Response(homePageHTML(), {
-                    status: 200,
-                    headers: {
-                        "Content-Type": "text/html; charset=utf-8",
-                    },
-                });
-            }
+                // Behavior based on the value of SNI
+                if (sniValue === '0') {
+                    // Ignore HTML rules, reverse proxy the request
+                    const randomHostname = cn_hostnames[Math.floor(Math.random() * cn_hostnames.length)];
+                    const proxyUrl = 'https://' + randomHostname + url.pathname + url.search;
+                    let modifiedRequest = new Request(proxyUrl, {
+                        method: request.method,
+                        headers: request.headers,
+                        body: request.body,
+                    });
+                    return await fetch(modifiedRequest);
+                } else if (sniValue === '1') {
+                    // Respond with 502 rejected
+                    return new Response('502 rejected', { status: 502 });
+                } else {
+                    // Any other value or undefined: return the regular home page HTML
+                    return new Response(homePageHTML(), {
+                        status: 200,
+                        headers: {
+                            'Content-Type': 'text/html; charset=utf-8',
+                        },
+                    });
+                }
             
             // 检查是否为 WebSocket 升级请求
             if (!upgradeHeader || upgradeHeader !== 'websocket') {
