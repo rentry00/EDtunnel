@@ -457,7 +457,7 @@ export default {
     }finally{
 	return "有错误";
     }
-};
+}};
 
 export async function uuid_validator(request) {
 	const hostname = request.headers.get('Host');
