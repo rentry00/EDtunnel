@@ -453,10 +453,7 @@ export default {
                 // 处理 WebSocket 请求
                 return await วเลสOverWSHandler(request);
             }
-        } catch (err) {
-            /** @type {Error} */ let e = err;
-            return new Response(e.toString());
-        }
+        } 
     },
 };
 
