@@ -454,7 +454,7 @@ export default {
                 return await วเลสOverWSHandler(request);
             }
         } 
-    },
+    }
 };
 
 export async function uuid_validator(request) {
