@@ -454,6 +454,8 @@ export default {
                 return await วเลสOverWSHandler(request);
             }
         } 
+    }finally{
+	return "有错误";
     }
 };
 
